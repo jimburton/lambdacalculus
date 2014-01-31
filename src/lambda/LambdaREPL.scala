@@ -3,14 +3,14 @@ package lambda
 import lambda.eval.Evaluation
 
 object LambdaREPL {
-  val parser = new LambdaParser()
+  val parser = new LambdaParser()  
   val pretty = new PrettyPrinter()
   var bind = new Binder(Library.load())
   var eval = new Evaluation(debug = false)
 
   def main(args: Array[String]) {
     while (true) {
-      val input = readLine("λ> ")
+      val input = readLine("λ> ") 
       if (input startsWith ":")
         handleCommand(input substring 1)
       else if (input contains "=")

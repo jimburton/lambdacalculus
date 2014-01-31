@@ -32,11 +32,17 @@ object Library {
 
     fix  = λf.(λw.f (λv.w w v)) (λw.f (λv.w w v));
     fact = fix (λfct. λn. ((iszero n) (λx. 1) (λx.(mul n (fct (pred n))))) \o.o);
+    
+    nil = pair true true;
+    isnil = first;
+    cons = λh.(λt. pair false (pair h t)); 
+    head = λz. (fst (snd z));
+    tail = λz.(snd (snd z));
   """
 
   def load() = {
     val parse = new LambdaParser()
-    import parse.{ Success, NoSuccess }
+    import parse.{ Success, NoSuccess } 
     parse.definitions(source) match {
       case Success(lib, _)   => lib
       case NoSuccess(err, _) => println(err); Map[String, Expr]()
