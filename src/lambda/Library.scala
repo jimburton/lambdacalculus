@@ -12,8 +12,8 @@ object Library {
     and   = λa. λb. a b false;
 
     pair   = λf. λs. λb. b f s;
-    first  = λp. p true;
-    second = λp. p false;
+    fst  = λp. p true;
+    snd = λp. p false;
 
     succ = λn.λs.λz. s (n s z);
     add  = λa.λb.λs.λz. a s (b s z);
@@ -24,8 +24,8 @@ object Library {
     number = λn. n S Z; // magic values S & Z are recognized as numbers
 
     pred_z = pair 0 0;
-    pred_s = \p. pair (second p) (succ (second p));
-    pred   = \n. first (n pred_s pred_z);
+    pred_s = \p. pair (snd p) (succ (snd p));
+    pred   = \n. fst (n pred_s pred_z);
 
     iszero = λn. n (\x.false) true;
     eq     = λa.λb. and (iszero (a pred b)) (iszero (b pred a));
@@ -34,7 +34,7 @@ object Library {
     fact = fix (λfct. λn. ((iszero n) (λx. 1) (λx.(mul n (fct (pred n))))) \o.o);
     
     nil = pair true true;
-    isnil = first;
+    isnil = fst;
     cons = λh.(λt. pair false (pair h t)); 
     head = λz. (fst (snd z));
     tail = λz.(snd (snd z));

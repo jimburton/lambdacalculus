@@ -12,7 +12,7 @@ class Scope(val parent: Option[Scope], val boundNames: Set[String]) {
 
   val id = Scope.nextId
 
-  def closestBinding(name: String): Option[Scope] =
+  def closestBinding(name: String): Option[Scope] = 
     if (boundNames contains name)
       Some(this)
     else
